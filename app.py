@@ -29,5 +29,5 @@ def predict():
     
     return jsonify({'prediction': int(prediction[0])})  # Convert NumPy int to regular int
 
-if __name__ == '__
-
+if __name__ == '__main__':
+    app.run(debug=True)
