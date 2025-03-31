@@ -60,3 +60,6 @@ print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
 # Save the trained model
 joblib.dump(model, 'models/spam_model.pkl')
 joblib.dump(vectorizer, 'models/vectorizer.pkl')  # Save the vectorizer as well
+import os
+
+os.makedirs('models', exist_ok=True)  # Ensure 'models' directory exists
