@@ -6,7 +6,6 @@ seaborn
 tensorflow
 flask
 joblib
-Flask==2.1.1
 gunicorn==20.1.0
 Flask==2.1.3
 Werkzeug==2.1.1
