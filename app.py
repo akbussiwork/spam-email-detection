@@ -1,18 +1,10 @@
-from flask import Flask, request, jsonify
 
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return "Welcome to the Spam Email Detection App!"
-
-if __name__ == '__main__':
-    app.run(debug=True)
 from flask import Flask, request, jsonify
 import joblib
 
-# Load the model (we'll add this after training the model)
+# Load the trained model and vectorizer
 model = joblib.load('models/spam_model.pkl')
+vectorizer = joblib.load('models/vectorizer.pkl')  # Ensure vectorizer is also loaded
 
 app = Flask(__name__)
 
@@ -25,10 +17,13 @@ def predict():
     data = request.get_json()
     email_text = data['text']
     
-    # Make predictions (using the trained model)
-    prediction = model.predict([email_text])
+    # Transform input text using the loaded vectorizer
+    text_features = vectorizer.transform([email_text])
     
-    return jsonify({'prediction': prediction[0]})
+    # Make prediction using the trained model
+    prediction = model.predict(text_features)
+    
+    return jsonify({'prediction': int(prediction[0])})  # Convert NumPy int to regular int
 
 if __name__ == '__main__':
     app.run(debug=True)
